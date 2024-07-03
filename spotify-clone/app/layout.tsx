@@ -12,16 +12,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={font.className}>
-        <Sidebar children={children}>
-
+      <body className={font.className} >
+        <Sidebar >
+          {children}
         </Sidebar>
-        
+
       </body>
     </html>
   );
