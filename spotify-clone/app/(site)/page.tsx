@@ -1,7 +1,10 @@
+import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
+import PageContent from "./PageContent";
 
-export default function Home() {
+export default async function Home() {
+  const songs = await getSongs();
   return (
     <div className="
     bg-neutral-700
@@ -33,7 +36,7 @@ export default function Home() {
             <ListItem
               image="/images/liked.jpg"
               name="Liked Songs"
-              href="liked" />
+              href="/liked" />
           </div>
         </div>
       </Header>
@@ -51,9 +54,7 @@ export default function Home() {
           font-semibold
           ">Newest songs</h1>
         </div>
-        <div>
-          List of Songs!
-        </div>
+       <PageContent songs={songs}/>
       </div>
     </div>
   );
