@@ -8,10 +8,19 @@ export interface Song{
     song_path: string,
     image_path: string,
 }
+
+export interface Playlist{
+    id:string,
+    user_id: string,
+    name: string,
+    private_status?: boolean,
+    description?: string,
+    image_path: string,
+    songs?: JSON,
+    users : UserDetails,
+}
 export interface UserDetails {
     id: string,
-    fist_name: string,
-    last_name: string,
     full_name: string,
     avatar_url: string,
     billing_address: Stripe.Address,
