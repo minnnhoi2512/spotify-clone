@@ -2,10 +2,13 @@ import getSongs from "@/actions/getSongs";
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
 import PageContent from "./PageContent";
+import getRooms from "@/actions/getRooms";
+import { Room } from "@/types";
 
 
 export default async function Home() {
   const songs = await getSongs();
+  const rooms: Room[] = await getRooms();
   return (
     <div className="
     bg-neutral-700
@@ -38,6 +41,15 @@ export default async function Home() {
               image="/images/liked.jpg"
               name="Liked Songs"
               href="/liked" />
+            {rooms.map((room) => (
+              <ListItem
+                key={room.id} // Thêm key để React có thể quản lý các phần tử danh sách tốt hơn
+                image="/images/okok.jpg"
+                name={room.name}
+                href={`/room/${room.id}`}
+              />
+            ))}
+
           </div>
         </div>
       </Header>
@@ -55,7 +67,7 @@ export default async function Home() {
           font-semibold
           ">Newest songs</h1>
         </div>
-       <PageContent songs={songs}/>
+        <PageContent songs={songs} />
       </div>
     </div>
   );

@@ -36,7 +36,13 @@ export default function ExpandModal() {
 
         return await createNewPlaylist();
     };
+    const onCreateNewRoom = async () => {
+        if (!user) {
+            return authModal.onOpen();
+        }
 
+        return await createNewRoom();
+    };
     const createNewPlaylist = async () => {
         const {
             error: supabaseError
@@ -56,7 +62,20 @@ export default function ExpandModal() {
         router.refresh();
         return toast.success('Playlist created!!!');       
     }
-
+    const createNewRoom = async () => {
+        const {
+            error: supabaseError
+        } = await supabaseClient
+            .from('rooms')
+            .insert({
+                name: `Vô đây nghe nhạc nè`,
+            });
+        if (supabaseError) {
+            return toast.error(supabaseError.message);
+        }
+        router.refresh();
+        return toast.success('New room created!!!');   
+      };
 
 
     return (
@@ -103,6 +122,23 @@ export default function ExpandModal() {
                             className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
                             <TbPlaylistAdd className="h-5 w-5 text-white/30" />
                             Create playlist
+                            <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘C</kbd>
+                        </button>
+                    </MenuItem>
+                    <div className="my-1 h-px bg-white/5" />
+                    {/* <MenuItem>
+                            <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                                <ArchiveBoxXMarkIcon className="h-5 w-5 text-white/30" />
+                                Archive
+                                <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘A</kbd>
+                            </button>
+                        </MenuItem> */}
+                    <MenuItem>
+                        <button
+                            onClick={onCreateNewRoom}
+                            className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/10">
+                            <TbPlaylistAdd className="h-5 w-5 text-white/30" />
+                            Create new room
                             <kbd className="ml-auto hidden font-sans text-xs text-white/50 group-data-[focus]:inline">⌘C</kbd>
                         </button>
                     </MenuItem>

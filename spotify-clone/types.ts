@@ -19,6 +19,11 @@ export interface Playlist{
     songs?: JSON,
     users : UserDetails,
 }
+export interface Room {
+    id: string;
+    created_at: string;
+    name : string,
+  }
 export interface UserDetails {
     id: string,
     full_name: string,
